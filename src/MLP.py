@@ -87,27 +87,34 @@ class MultiLayerPerceptron:
         # Challenge: Write the Backpropagation Algorithm. 
         # Here you have it step by step:
 
-        # STEP 1: Feed a sample to the network 
+        # STEP 1: Feed a sample to the network
+        outputs = self.run(x)
         
         # STEP 2: Calculate the MSE
+        error = y - outputs
+        MSE = sum(error ** 2) / self.layers[-1]
 
         # STEP 3: Calculate the output error terms
+        self.d[-1] = outputs * (1 - outputs) * error
 
         # STEP 4: Calculate the error term of each unit on each layer
         for i in reversed(range(1,len(self.network)-1)):
             for h in range(len(self.network[i])):
                 fwd_error = 0.0
                 for k in range(self.layers[i+1]): 
-                    fwd_error += # fill in the blank               
-                self.d[i][h] = # fill in the blank
+                    fwd_error += self.network[i+1][k].weights[h] * self.d[i+1][k] # sum of weight * self.d               
+                self.d[i][h] = self.values[i][h] * (1-self.values[i][h]) * fwd_error
 
         # STEPS 5 & 6: Calculate the deltas and update the weights
-        for i in range(1,len(self.network)):
-            for j in range(self.layers[i]):
-                for k in range(self.layers[i-1]+1):
-                    pass# fill in the blank
+        for i in range(1,len(self.network)): # layers
+            for j in range(self.layers[i]): # neurons
+                for k in range(self.layers[i-1]+1): # inputs
+                    if k == self.layers[i-1]:
+                        delta = self.eta * self.d[i][j] * self.bias
+                    else:
+                        delta = self.eta * self.d[i][j] * self.values[i-1][k]
+                    self.network[i][j].weights[k] += delta
         return MSE
-
 
 
 #test code
@@ -121,11 +128,16 @@ for i in range(3000):
     mse += mlp.bp([1,1],[0])
     mse = mse / 4
     if(i%100 == 0):
-        print (mse)
+        print(mse)
 
 mlp.print_weights()
     
 print("MLP:")
+print ("0 0 = {0:.10f}".format(mlp.run([0,0])[0]))
+print ("0 1 = {0:.10f}".format(mlp.run([0,1])[0]))
+print ("1 0 = {0:.10f}".format(mlp.run([1,0])[0]))
+print ("1 1 = {0:.10f}".format(mlp.run([1,1])[0]))
+print("Re-Test")
 print ("0 0 = {0:.10f}".format(mlp.run([0,0])[0]))
 print ("0 1 = {0:.10f}".format(mlp.run([0,1])[0]))
 print ("1 0 = {0:.10f}".format(mlp.run([1,0])[0]))
