@@ -118,9 +118,22 @@ class MultiLayerPerceptron:
 
 
 #test code
-
-
 # Dataset for the 7 to 1 network
+mlp=MultiLayerPerceptron(layers=[7,7,1])
+mlp.print_weights()
+print("7 to 1 network - before training")
+print(f" 0 : {int(mlp.run([1,1,1,1,1,1,0])[0]*10)}")
+print(f" 1 : {int(mlp.run([0,1,1,0,0,0,0])[0]*10)}")
+print(f" 2 : {int(mlp.run([1,1,0,1,1,0,1])[0]*10)}")
+print(f" 3 : {int(mlp.run([1,1,1,1,0,0,1])[0]*10)}")
+print(f" 4 : {int(mlp.run([0,1,1,0,0,1,1])[0]*10)}")
+print(f" 5 : {int(mlp.run([1,0,1,1,0,1,1])[0]*10)}")
+print(f" 6 : {int(mlp.run([1,0,1,1,1,1,1])[0]*10)}")
+print(f" 7 : {int(mlp.run([1,1,1,0,0,0,0])[0]*10)}")
+print(f" 8 : {int(mlp.run([1,1,1,1,1,1,1])[0]*10)}")
+print(f" 9 : {int(mlp.run([1,1,1,1,0,1,1])[0]*10)}")
+print()
+epochs = int(input("How many epochs? "))
 for i in range(epochs):
     mse = 0.0
     mse += mlp.bp([1,1,1,1,1,1,0],[0.05])    #0 pattern
@@ -134,35 +147,49 @@ for i in range(epochs):
     mse += mlp.bp([1,1,1,1,1,1,1],[0.85])    #8 pattern
     mse += mlp.bp([1,1,1,1,0,1,1],[0.95])    #9 pattern
     mse = mse/10.0
+    if i % 100 == 0:
+        print(mse)
 
+mlp.print_weights()
+print("7 to 1 network - after training")
+print(f" 0 : {int(mlp.run([1,1,1,1,1,1,0])[0]*10)}")
+print(f" 1 : {int(mlp.run([0,1,1,0,0,0,0])[0]*10)}")
+print(f" 2 : {int(mlp.run([1,1,0,1,1,0,1])[0]*10)}")
+print(f" 3 : {int(mlp.run([1,1,1,1,0,0,1])[0]*10)}")
+print(f" 4 : {int(mlp.run([0,1,1,0,0,1,1])[0]*10)}")
+print(f" 5 : {int(mlp.run([1,0,1,1,0,1,1])[0]*10)}")
+print(f" 6 : {int(mlp.run([1,0,1,1,1,1,1])[0]*10)}")
+print(f" 7 : {int(mlp.run([1,1,1,0,0,0,0])[0]*10)}")
+print(f" 8 : {int(mlp.run([1,1,1,1,1,1,1])[0]*10)}")
+print(f" 9 : {int(mlp.run([1,1,1,1,0,1,1])[0]*10)}")
 
 # Dataset for the 7 to 10 network
-for i in range(epochs):
-    mse = 0.0
-    mse += mlp.bp([1,1,1,1,1,1,0],[1,0,0,0,0,0,0,0,0,0])    #0 pattern
-    mse += mlp.bp([0,1,1,0,0,0,0],[0,1,0,0,0,0,0,0,0,0])    #1 pattern
-    mse += mlp.bp([1,1,0,1,1,0,1],[0,0,1,0,0,0,0,0,0,0])    #2 pattern
-    mse += mlp.bp([1,1,1,1,0,0,1],[0,0,0,1,0,0,0,0,0,0])    #3 pattern
-    mse += mlp.bp([0,1,1,0,0,1,1],[0,0,0,0,1,0,0,0,0,0])    #4 pattern
-    mse += mlp.bp([1,0,1,1,0,1,1],[0,0,0,0,0,1,0,0,0,0])    #5 pattern
-    mse += mlp.bp([1,0,1,1,1,1,1],[0,0,0,0,0,0,1,0,0,0])    #6 pattern
-    mse += mlp.bp([1,1,1,0,0,0,0],[0,0,0,0,0,0,0,1,0,0])    #7 pattern
-    mse += mlp.bp([1,1,1,1,1,1,1],[0,0,0,0,0,0,0,0,1,0])    #8 pattern
-    mse += mlp.bp([1,1,1,1,0,1,1],[0,0,0,0,0,0,0,0,0,1])    #9 pattern
-    mse = mse/10.0
+# for i in range(epochs):
+#     mse = 0.0
+#     mse += mlp.bp([1,1,1,1,1,1,0],[1,0,0,0,0,0,0,0,0,0])    #0 pattern
+#     mse += mlp.bp([0,1,1,0,0,0,0],[0,1,0,0,0,0,0,0,0,0])    #1 pattern
+#     mse += mlp.bp([1,1,0,1,1,0,1],[0,0,1,0,0,0,0,0,0,0])    #2 pattern
+#     mse += mlp.bp([1,1,1,1,0,0,1],[0,0,0,1,0,0,0,0,0,0])    #3 pattern
+#     mse += mlp.bp([0,1,1,0,0,1,1],[0,0,0,0,1,0,0,0,0,0])    #4 pattern
+#     mse += mlp.bp([1,0,1,1,0,1,1],[0,0,0,0,0,1,0,0,0,0])    #5 pattern
+#     mse += mlp.bp([1,0,1,1,1,1,1],[0,0,0,0,0,0,1,0,0,0])    #6 pattern
+#     mse += mlp.bp([1,1,1,0,0,0,0],[0,0,0,0,0,0,0,1,0,0])    #7 pattern
+#     mse += mlp.bp([1,1,1,1,1,1,1],[0,0,0,0,0,0,0,0,1,0])    #8 pattern
+#     mse += mlp.bp([1,1,1,1,0,1,1],[0,0,0,0,0,0,0,0,0,1])    #9 pattern
+#     mse = mse/10.0
 
 
 # Dataset for the 7 to 7 network
-for i in range(epochs):
-    mse = 0.0
-    mse += mlp.bp([1,1,1,1,1,1,0],[1,1,1,1,1,1,0])    #0 pattern
-    mse += mlp.bp([0,1,1,0,0,0,0],[0,1,1,0,0,0,0])    #1 pattern
-    mse += mlp.bp([1,1,0,1,1,0,1],[1,1,0,1,1,0,1])    #2 pattern
-    mse += mlp.bp([1,1,1,1,0,0,1],[1,1,1,1,0,0,1])    #3 pattern
-    mse += mlp.bp([0,1,1,0,0,1,1],[0,1,1,0,0,1,1])    #4 pattern
-    mse += mlp.bp([1,0,1,1,0,1,1],[1,0,1,1,0,1,1])    #5 pattern
-    mse += mlp.bp([1,0,1,1,1,1,1],[1,0,1,1,1,1,1])    #6 pattern
-    mse += mlp.bp([1,1,1,0,0,0,0],[1,1,1,0,0,0,0])    #7 pattern
-    mse += mlp.bp([1,1,1,1,1,1,1],[1,1,1,1,1,1,1])    #8 pattern
-    mse += mlp.bp([1,1,1,1,0,1,1],[1,1,1,1,0,1,1])    #9 pattern
-    mse = mse/10.0
+# for i in range(epochs):
+#     mse = 0.0
+#     mse += mlp.bp([1,1,1,1,1,1,0],[1,1,1,1,1,1,0])    #0 pattern
+#     mse += mlp.bp([0,1,1,0,0,0,0],[0,1,1,0,0,0,0])    #1 pattern
+#     mse += mlp.bp([1,1,0,1,1,0,1],[1,1,0,1,1,0,1])    #2 pattern
+#     mse += mlp.bp([1,1,1,1,0,0,1],[1,1,1,1,0,0,1])    #3 pattern
+#     mse += mlp.bp([0,1,1,0,0,1,1],[0,1,1,0,0,1,1])    #4 pattern
+#     mse += mlp.bp([1,0,1,1,0,1,1],[1,0,1,1,0,1,1])    #5 pattern
+#     mse += mlp.bp([1,0,1,1,1,1,1],[1,0,1,1,1,1,1])    #6 pattern
+#     mse += mlp.bp([1,1,1,0,0,0,0],[1,1,1,0,0,0,0])    #7 pattern
+#     mse += mlp.bp([1,1,1,1,1,1,1],[1,1,1,1,1,1,1])    #8 pattern
+#     mse += mlp.bp([1,1,1,1,0,1,1],[1,1,1,1,0,1,1])    #9 pattern
+#     mse = mse/10.0
