@@ -138,6 +138,8 @@ for i in range(epochs):
     mse += mlp1.bp([1,1,1,1,1,1,1],[0.85])    #8 pattern
     mse += mlp1.bp([1,1,1,1,0,1,1],[0.95])    #9 pattern
     mse = mse/10.0
+    if i % 100 == 0:
+        print(mse)
 
 # Dataset for the 7 to 10 network
 print("Training 7 to 10 network...")
@@ -154,6 +156,8 @@ for i in range(epochs):
     mse += mlp2.bp([1,1,1,1,1,1,1],[0,0,0,0,0,0,0,0,1,0])    #8 pattern
     mse += mlp2.bp([1,1,1,1,0,1,1],[0,0,0,0,0,0,0,0,0,1])    #9 pattern
     mse = mse/10.0
+    if i % 100 == 0:
+        print(mse)
 
 # Dataset for the 7 to 7 network
 print("Training 7 to 7 network...")
@@ -170,6 +174,20 @@ for i in range(epochs):
     mse += mlp3.bp([1,1,1,1,1,1,1],[1,1,1,1,1,1,1])    #8 pattern
     mse += mlp3.bp([1,1,1,1,0,1,1],[1,1,1,1,0,1,1])    #9 pattern
     mse = mse/10.0
+    if i % 100 == 0:
+        print(mse)
+
+print()
+print(f' 0: {[int(x) for x in (mlp3.run([1,1,1,1,1,1,0]) + 0.5)]}')
+print(f' 1: {[int(x) for x in (mlp3.run([0,1,1,0,0,0,0]) + 0.5)]}')
+print(f' 2: {[int(x) for x in (mlp3.run([1,1,0,1,1,0,1]) + 0.5)]}')
+print(f' 3: {[int(x) for x in (mlp3.run([1,1,1,1,0,0,1]) + 0.5)]}')
+print(f' 4: {[int(x) for x in (mlp3.run([0,1,1,0,0,1,1]) + 0.5)]}')
+print(f' 5: {[int(x) for x in (mlp3.run([1,0,1,1,0,1,1]) + 0.5)]}')
+print(f' 6: {[int(x) for x in (mlp3.run([1,0,1,1,1,1,1]) + 0.5)]}')
+print(f' 7: {[int(x) for x in (mlp3.run([1,1,1,0,0,0,0]) + 0.5)]}')
+print(f' 8: {[int(x) for x in (mlp3.run([1,1,1,1,1,1,1]) + 0.5)]}')
+print(f' 9: {[int(x) for x in (mlp3.run([1,1,1,1,0,1,1]) + 0.5)]}')
 
 print("Done!\n")
 pattern = [1.2]
